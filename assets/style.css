@@ -1,0 +1,111 @@
+/* Reset some basic elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set the font, you might want to import a Google Font or use a system font */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  /* Dark grey color for text */
+  background-color: #f4f4f4;
+  /* Light grey background */
+}
+
+/* Styling the container */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  /* Adjust the ratio between the sidebar and the main content */
+  gap: 20px;
+  /* Space between columns */
+}
+
+/* Styling the sidebar */
+.sidebar {
+  background-color: #fff;
+  /* White background for the sidebar */
+  padding: 20px;
+}
+
+.sidebar h1 {
+  font-size: 2em;
+  /* Large font size for your name */
+  margin-bottom: 0.5em;
+}
+
+.sidebar p {
+  margin-bottom: 1em;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  /* Remove default list styling */
+}
+
+.sidebar nav ul li {
+  margin-bottom: 0.5em;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  /* Remove underline from links */
+  color: #333;
+  /* Dark grey color for text */
+}
+
+/* Styling the main content area */
+.portfolio {
+  padding: 20px;
+  background-color: #eaeaea;
+  /* Slightly darker background for the main content */
+}
+
+.portfolio-item {
+  margin-bottom: 40px;
+  /* Space between portfolio items */
+}
+
+.portfolio-item h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.portfolio-item p {
+  margin-bottom: 1em;
+}
+
+.portfolio-item figure {
+  margin-bottom: 1em;
+  /* Space below the image */
+}
+
+.portfolio-item img {
+  max-width: 100%;
+  /* Make sure images are responsive */
+  height: auto;
+}
+
+.portfolio-item figcaption {
+  font-style: italic;
+  text-align: center;
+}
+
+/* Add any hover effects or transitions */
+a:hover,
+a:focus {
+  color: #1a1a1a;
+  /* Slightly darker color on hover */
+  text-decoration: underline;
+  /* Add underline on hover */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    /* Stack the sidebar and main content on top of each other */
+  }
+}

@@ -1,0 +1,275 @@
+/**
+ * Syntax highlighting styles
+ */
+.highlight {
+    background: #fff;
+    font-family:
+        "Iosevka",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    @extend %vertical-rhythm;
+
+    .highlighter-rouge & {
+        background: #eef;
+    }
+
+    .c {
+        color: #998;
+        font-style: italic;
+        font-family: "Iosevka";
+    } // Comment
+    .err {
+        color: #a61717;
+        background-color: #e3d2d2;
+        font-family: "Iosevka";
+    } // Error
+    .k {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword
+    .o {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Operator
+    .cm {
+        color: #998;
+        font-style: italic;
+        font-family: "Iosevka";
+    } // Comment.Multiline
+    .cp {
+        color: #999;
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Comment.Preproc
+    .c1 {
+        color: #998;
+        font-style: italic;
+        font-family: "Iosevka";
+    } // Comment.Single
+    .cs {
+        color: #999;
+        font-weight: bold;
+        font-style: italic;
+        font-family: "Iosevka";
+    } // Comment.Special
+    .gd {
+        color: #000;
+        background-color: #fdd;
+        font-family: "Iosevka";
+    } // Generic.Deleted
+    .gd .x {
+        color: #000;
+        background-color: #faa;
+        font-family: "Iosevka";
+    } // Generic.Deleted.Specific
+    .ge {
+        font-style: italic;
+        font-family: "Iosevka";
+    } // Generic.Emph
+    .gr {
+        color: #a00;
+        font-family: "Iosevka";
+    } // Generic.Error
+    .gh {
+        color: #999;
+        font-family: "Iosevka";
+    } // Generic.Heading
+    .gi {
+        color: #000;
+        background-color: #dfd;
+        font-family: "Iosevka";
+    } // Generic.Inserted
+    .gi .x {
+        color: #000;
+        background-color: #afa;
+        font-family: "Iosevka";
+    } // Generic.Inserted.Specific
+    .go {
+        color: #888;
+        font-family: "Iosevka";
+    } // Generic.Output
+    .gp {
+        color: #555;
+        font-family: "Iosevka";
+    } // Generic.Prompt
+    .gs {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Generic.Strong
+    .gu {
+        color: #aaa;
+        font-family: "Iosevka";
+    } // Generic.Subheading
+    .gt {
+        color: #a00;
+        font-family: "Iosevka";
+    } // Generic.Traceback
+    .kc {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword.Constant
+    .kd {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword.Declaration
+    .kp {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword.Pseudo
+    .kr {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword.Reserved
+    .kt {
+        color: #458;
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Keyword.Type
+    .m {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number
+    .s {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String
+    .na {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Attribute
+    .nb {
+        color: #0086b3;
+        font-family: "Iosevka";
+    } // Name.Builtin
+    .nc {
+        color: #458;
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Name.Class
+    .no {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Constant
+    .ni {
+        color: #800080;
+        font-family: "Iosevka";
+    } // Name.Entity
+    .ne {
+        color: #900;
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Name.Exception
+    .nf {
+        color: #900;
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Name.Function
+    .nn {
+        color: #555;
+        font-family: "Iosevka";
+    } // Name.Namespace
+    .nt {
+        color: #000080;
+        font-family: "Iosevka";
+    } // Name.Tag
+    .nv {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Variable
+    .ow {
+        font-weight: bold;
+        font-family: "Iosevka";
+    } // Operator.Word
+    .w {
+        color: #bbb;
+        font-family: "Iosevka";
+    } // Text.Whitespace
+    .mf {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number.Float
+    .mh {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number.Hex
+    .mi {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number.Integer
+    .mo {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number.Oct
+    .sb {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Backtick
+    .sc {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Char
+    .sd {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Doc
+    .s2 {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Double
+    .se {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Escape
+    .sh {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Heredoc
+    .si {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Interpol
+    .sx {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Other
+    .sr {
+        color: #009926;
+        font-family: "Iosevka";
+    } // Literal.String.Regex
+    .s1 {
+        color: #d14;
+        font-family: "Iosevka";
+    } // Literal.String.Single
+    .ss {
+        color: #990073;
+        font-family: "Iosevka";
+    } // Literal.String.Symbol
+    .bp {
+        color: #999;
+        font-family: "Iosevka";
+    } // Name.Builtin.Pseudo
+    .vc {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Variable.Class
+    .vg {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Variable.Global
+    .vi {
+        color: #008080;
+        font-family: "Iosevka";
+    } // Name.Variable.Instance
+    .il {
+        color: #099;
+        font-family: "Iosevka";
+    } // Literal.Number.Integer.Long
+}

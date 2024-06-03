@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-02T21:08:49-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 0</title><link href="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html" rel="alternate" type="text/html" title="Learning Go, Day 0" /><published>2024-06-02T14:57:16-06:00</published><updated>2024-06-02T14:57:16-06:00</updated><id>http://localhost:4000/learning/go/2024/06/02/learning-go-day0</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html"><![CDATA[<p>Hi There!</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="s">"fmt"</span>
+
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"Hello, World!"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is how you do simple string output in Go.</p>
+
+<p>I will be following the <a href="https://go.dev/learn/">Official Website</a>, and, down the road, some other online resources I find useful.
+<br />
+You can use the link above to install everything you need to get started with Go.</p>
+
+<p>I will try my best to document my learning journey here.</p>
+
+<p>Cheers!
+<br />
+Manav</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hi There!]]></summary></entry></feed>

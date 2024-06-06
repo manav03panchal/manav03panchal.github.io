@@ -64,5 +64,9 @@ The program will not compile if there are any unused imports or variables. This 
 Go takes formatting seriously. The `gofmt` tool automatically formats Go code according to a set of rules. This ensures that all Go code looks the same, no matter who wrote it. This is a good thing, as it makes it easier to read and understand code written by others. It is best practice to run `gofmt` on your code before committing it to version control.
 
 ___
+\
+That's it for today. I will be back with more tomorrow.
 
-# 1.2 Command-Line Arguments
+Cheers,
+\
+Manav

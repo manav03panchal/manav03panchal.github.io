@@ -1,4 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-04T15:16:48-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 1</title><link href="http://localhost:4000/learning/go/2024/06/04/learning-go-day1.html" rel="alternate" type="text/html" title="Learning Go, Day 1" /><published>2024-06-04T00:00:00-06:00</published><updated>2024-06-04T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/04/learning-go-day1</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/04/learning-go-day1.html"><![CDATA[<p>Hi There!</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-06T14:48:24-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 2</title><link href="http://localhost:4000/learning/go/2024/06/06/learning-go-day2.html" rel="alternate" type="text/html" title="Learning Go, Day 2" /><published>2024-06-06T00:00:00-06:00</published><updated>2024-06-06T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/06/learning-go-day2</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/06/learning-go-day2.html"><![CDATA[<p>Hello again,</p>
+
+<p>Continuing from where we left off.</p>
+
+<hr />
+<p><br />
+Let’s start with Chapter 1.2</p>
+
+<h2 id="12-command-line-arguments">1.2 Command-Line Arguments</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">os</code> package. The command line args are available to any program in a Variable named <code class="language-plaintext highlighter-rouge">Args</code>. <code class="language-plaintext highlighter-rouge">os.Args</code> is a <em>slice</em> of strings. Can be accessed the same way as in Python.</p>
+
+<p><code class="language-plaintext highlighter-rouge">os.Args[0]</code> is the name of the command.</p>
+
+<p>I mean, if you look at the syntax. Shit is pretty similar to Python ngl.
+<br />
+Here.</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">var</span> <span class="n">s</span><span class="p">,</span> <span class="n">sep</span> <span class="kt">string</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">s</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">sep</span> <span class="o">=</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span>
+	<span class="p">}</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It’s kinda weird we don’t have any parentheses around the <code class="language-plaintext highlighter-rouge">for</code> loop tho.</p>
+
+<p>Also, using blank identifiers <code class="language-plaintext highlighter-rouge">_</code> is best practices.
+Like here:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">s</span><span class="p">,</span> <span class="n">sep</span> <span class="o">:=</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">arg</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">0</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="n">s</span> <span class="o">+=</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">arg</span>
+		<span class="n">sep</span> <span class="o">=</span> <span class="s">" "</span>
+	<span class="p">}</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<p>Every <code class="language-plaintext highlighter-rouge">s+=</code> results in a creation of a new string. The garbage collector takes care of the ones no longer necessary.</p>
+
+<p>When dealing with large data, a simpler and more efficient solution would be to use <code class="language-plaintext highlighter-rouge">strings.Join</code> from the <code class="language-plaintext highlighter-rouge">strings</code> package.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hello again,]]></summary></entry><entry><title type="html">Learning Go, Day 1</title><link href="http://localhost:4000/learning/go/2024/06/04/learning-go-day1.html" rel="alternate" type="text/html" title="Learning Go, Day 1" /><published>2024-06-04T00:00:00-06:00</published><updated>2024-06-04T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/04/learning-go-day1</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/04/learning-go-day1.html"><![CDATA[<p>Hi There!</p>
 
 <p>Hope you’re doing well.</p>
 
@@ -55,8 +113,12 @@ Say for instance, you save this code as <code class="language-plaintext highligh
 <p>Go takes formatting seriously. The <code class="language-plaintext highlighter-rouge">gofmt</code> tool automatically formats Go code according to a set of rules. This ensures that all Go code looks the same, no matter who wrote it. This is a good thing, as it makes it easier to read and understand code written by others. It is best practice to run <code class="language-plaintext highlighter-rouge">gofmt</code> on your code before committing it to version control.</p>
 
 <hr />
+<p><br />
+That’s it for today. I will be back with more tomorrow.</p>
 
-<h1 id="12-command-line-arguments">1.2 Command-Line Arguments</h1>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hi There!]]></summary></entry><entry><title type="html">Learning Go, Day 0</title><link href="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html" rel="alternate" type="text/html" title="Learning Go, Day 0" /><published>2024-06-02T00:00:00-06:00</published><updated>2024-06-02T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/02/learning-go-day0</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html"><![CDATA[<p>Hi There!</p>
+<p>Cheers,
+<br />
+Manav</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hi There!]]></summary></entry><entry><title type="html">Learning Go, Day 0</title><link href="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html" rel="alternate" type="text/html" title="Learning Go, Day 0" /><published>2024-06-02T00:00:00-06:00</published><updated>2024-06-02T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/02/learning-go-day0</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/02/learning-go-day0.html"><![CDATA[<p>Hi There!</p>
 
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
 <span class="k">import</span> <span class="s">"fmt"</span>

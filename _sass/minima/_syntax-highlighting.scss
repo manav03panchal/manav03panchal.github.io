@@ -1,275 +1,403 @@
 /**
  * Syntax highlighting styles
  */
+:root {
+    --bg-light: lavender;
+    --bg-dark: black;
+    --bg-rouge-light: lavender;
+    --bg-rouge-dark: black;
+    --color-comment-light: gray;
+    --color-comment-dark: lightgray;
+    --color-error-light: darkred;
+    --color-error-dark: lightcoral;
+    --bg-error-light: mistyrose;
+    --bg-error-dark: brown;
+    --color-keyword-light: black;
+    --color-keyword-dark: mediumorchid;
+    --color-operator-light: black;
+    --color-operator-dark: lightgoldenrodyellow;
+    --color-preproc-light: gray;
+    --color-preproc-dark: peru;
+    --color-deleted-light: black;
+    --color-deleted-dark: lightcoral;
+    --bg-deleted-light: lightcoral;
+    --bg-deleted-dark: brown;
+    --color-emph-light: inherit;
+    --color-emph-dark: inherit;
+    --color-heading-light: gray;
+    --color-heading-dark: lightgoldenrodyellow;
+    --color-inserted-light: black;
+    --color-inserted-dark: lightgreen;
+    --bg-inserted-light: honeydew;
+    --bg-inserted-dark: darkgreen;
+    --color-output-light: gray;
+    --color-output-dark: gray;
+    --color-prompt-light: darkgray;
+    --color-prompt-dark: gray;
+    --color-strong-light: black;
+    --color-strong-dark: lightgoldenrodyellow;
+    --color-subheading-light: lightgray;
+    --color-subheading-dark: lightgray;
+    --color-traceback-light: darkred;
+    --color-traceback-dark: lightcoral;
+    --color-constant-light: black;
+    --color-constant-dark: mediumorchid;
+    --color-declaration-light: black;
+    --color-declaration-dark: mediumorchid;
+    --color-pseudo-light: black;
+    --color-pseudo-dark: mediumorchid;
+    --color-reserved-light: black;
+    --color-reserved-dark: mediumorchid;
+    --color-type-light: darkslateblue;
+    --color-type-dark: lightskyblue;
+    --color-number-light: mediumseagreen;
+    --color-number-dark: peru;
+    --color-string-light: indianred;
+    --color-string-dark: lightgreen;
+    --color-attribute-light: teal;
+    --color-attribute-dark: lightgoldenrodyellow;
+    --color-builtin-light: deepskyblue;
+    --color-builtin-dark: lightseagreen;
+    --color-class-light: darkslateblue;
+    --color-class-dark: wheat;
+    --color-constant-light: teal;
+    --color-constant-dark: lightgoldenrodyellow;
+    --color-entity-light: purple;
+    --color-entity-dark: lightseagreen;
+    --color-exception-light: darkred;
+    --color-exception-dark: lightcoral;
+    --color-function-light: darkred;
+    --color-function-dark: lightskyblue;
+    --color-namespace-light: darkgray;
+    --color-namespace-dark: lightgray;
+    --color-tag-light: navy;
+    --color-tag-dark: lightseagreen;
+    --color-variable-light: teal;
+    --color-variable-dark: lightseagreen;
+    --color-whitespace-light: lightgray;
+    --color-whitespace-dark: gray;
+    --color-symbol-light: darkmagenta;
+    --color-symbol-dark: mediumorchid;
+}
+
+body {
+    &.dark-mode {
+        --bg-light: var(--bg-dark);
+        --bg-rouge-light: var(--bg-rouge-dark);
+        --color-comment-light: var(--color-comment-dark);
+        --color-error-light: var(--color-error-dark);
+        --bg-error-light: var(--bg-error-dark);
+        --color-keyword-light: var(--color-keyword-dark);
+        --color-operator-light: var(--color-operator-dark);
+        --color-preproc-light: var(--color-preproc-dark);
+        --color-deleted-light: var(--color-deleted-dark);
+        --bg-deleted-light: var(--bg-deleted-dark);
+        --color-emph-light: var(--color-emph-dark);
+        --color-heading-light: var(--color-heading-dark);
+        --color-inserted-light: var(--color-inserted-dark);
+        --bg-inserted-light: var(--bg-inserted-dark);
+        --color-output-light: var(--color-output-dark);
+        --color-prompt-light: var(--color-prompt-dark);
+        --color-strong-light: var(--color-strong-dark);
+        --color-subheading-light: var(--color-subheading-dark);
+        --color-traceback-light: var(--color-traceback-dark);
+        --color-constant-light: var(--color-constant-dark);
+        --color-declaration-light: var(--color-declaration-dark);
+        --color-pseudo-light: var(--color-pseudo-dark);
+        --color-reserved-light: var(--color-reserved-dark);
+        --color-type-light: var(--color-type-dark);
+        --color-number-light: var(--color-number-dark);
+        --color-string-light: var(--color-string-dark);
+        --color-attribute-light: var(--color-attribute-dark);
+        --color-builtin-light: var(--color-builtin-dark);
+        --color-class-light: var(--color-class-dark);
+        --color-entity-light: var(--color-entity-dark);
+        --color-exception-light: var(--color-exception-dark);
+        --color-function-light: var(--color-function-dark);
+        --color-namespace-light: var(--color-namespace-dark);
+        --color-tag-light: var(--color-tag-dark);
+        --color-variable-light: var(--color-variable-dark);
+        --color-whitespace-light: var(--color-whitespace-dark);
+        --color-symbol-light: var(--color-symbol-dark);
+    }
+}
+
 .highlight {
-    background: #fff;
-    font-family:
-        "Iosevka",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol";
+    border: 0.5px solid var(--color-comment-light);
+    background: var(--bg-light);
+    font-family: "Iosevka";
     @extend %vertical-rhythm;
 
     .highlighter-rouge & {
-        background: #eef;
+        background: var(--bg-rouge-light);
     }
 
     .c {
-        color: #998;
+        color: var(--color-comment-light);
         font-style: italic;
         font-family: "Iosevka";
     } // Comment
     .err {
-        color: #a61717;
-        background-color: #e3d2d2;
+        color: var(--color-error-light);
+        background-color: var(--bg-error-light);
         font-family: "Iosevka";
     } // Error
     .k {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-keyword-light);
     } // Keyword
     .o {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-operator-light);
     } // Operator
     .cm {
-        color: #998;
+        color: var(--color-comment-light);
         font-style: italic;
         font-family: "Iosevka";
     } // Comment.Multiline
     .cp {
-        color: #999;
+        color: var(--color-preproc-light);
         font-weight: bold;
         font-family: "Iosevka";
     } // Comment.Preproc
     .c1 {
-        color: #998;
+        color: var(--color-comment-light);
         font-style: italic;
         font-family: "Iosevka";
     } // Comment.Single
     .cs {
-        color: #999;
+        color: var(--color-preproc-light);
         font-weight: bold;
         font-style: italic;
         font-family: "Iosevka";
     } // Comment.Special
     .gd {
-        color: #000;
-        background-color: #fdd;
+        color: var(--color-deleted-light);
+        background-color: var(--bg-deleted-light);
         font-family: "Iosevka";
     } // Generic.Deleted
     .gd .x {
-        color: #000;
-        background-color: #faa;
+        color: var(--color-deleted-light);
+        background-color: var(--bg-deleted-light);
         font-family: "Iosevka";
     } // Generic.Deleted.Specific
     .ge {
         font-style: italic;
         font-family: "Iosevka";
+        color: var(--color-emph-light);
     } // Generic.Emph
     .gr {
-        color: #a00;
+        color: var(--color-error-light);
         font-family: "Iosevka";
     } // Generic.Error
     .gh {
-        color: #999;
+        color: var(--color-heading-light);
         font-family: "Iosevka";
     } // Generic.Heading
     .gi {
-        color: #000;
-        background-color: #dfd;
+        color: var(--color-inserted-light);
+        background-color: var(--bg-inserted-light);
         font-family: "Iosevka";
     } // Generic.Inserted
     .gi .x {
-        color: #000;
-        background-color: #afa;
+        color: var(--color-inserted-light);
+        background-color: var(--bg-inserted-light);
         font-family: "Iosevka";
     } // Generic.Inserted.Specific
     .go {
-        color: #888;
+        color: var(--color-output-light);
         font-family: "Iosevka";
     } // Generic.Output
     .gp {
-        color: #555;
+        color: var(--color-prompt-light);
         font-family: "Iosevka";
     } // Generic.Prompt
     .gs {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-strong-light);
     } // Generic.Strong
     .gu {
-        color: #aaa;
+        color: var(--color-subheading-light);
         font-family: "Iosevka";
     } // Generic.Subheading
     .gt {
-        color: #a00;
+        color: var(--color-traceback-light);
         font-family: "Iosevka";
     } // Generic.Traceback
     .kc {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-constant-light);
     } // Keyword.Constant
     .kd {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-declaration-light);
     } // Keyword.Declaration
     .kp {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-pseudo-light);
     } // Keyword.Pseudo
     .kr {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-reserved-light);
     } // Keyword.Reserved
     .kt {
-        color: #458;
+        color: var(--color-type-light);
         font-weight: bold;
         font-family: "Iosevka";
     } // Keyword.Type
     .m {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number
     .s {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String
     .na {
-        color: #008080;
+        color: var(--color-attribute-light);
         font-family: "Iosevka";
     } // Name.Attribute
     .nb {
-        color: #0086b3;
+        color: var(--color-builtin-light);
         font-family: "Iosevka";
     } // Name.Builtin
     .nc {
-        color: #458;
+        color: var(--color-class-light);
         font-weight: bold;
         font-family: "Iosevka";
     } // Name.Class
     .no {
-        color: #008080;
+        color: var(--color-constant-light);
         font-family: "Iosevka";
     } // Name.Constant
     .ni {
-        color: #800080;
+        color: var(--color-entity-light);
         font-family: "Iosevka";
     } // Name.Entity
     .ne {
-        color: #900;
+        color: var(--color-exception-light);
         font-weight: bold;
         font-family: "Iosevka";
     } // Name.Exception
     .nf {
-        color: #900;
+        color: var(--color-function-light);
         font-weight: bold;
         font-family: "Iosevka";
     } // Name.Function
     .nn {
-        color: #555;
+        color: var(--color-namespace-light);
         font-family: "Iosevka";
     } // Name.Namespace
     .nt {
-        color: #000080;
+        color: var(--color-tag-light);
         font-family: "Iosevka";
     } // Name.Tag
     .nv {
-        color: #008080;
+        color: var(--color-variable-light);
         font-family: "Iosevka";
     } // Name.Variable
     .ow {
         font-weight: bold;
         font-family: "Iosevka";
+        color: var(--color-symbol-light);
     } // Operator.Word
     .w {
-        color: #bbb;
+        color: var(--color-whitespace-light);
         font-family: "Iosevka";
     } // Text.Whitespace
     .mf {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number.Float
     .mh {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number.Hex
     .mi {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number.Integer
     .mo {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number.Oct
     .sb {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Backtick
     .sc {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Char
     .sd {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Doc
     .s2 {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Double
     .se {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Escape
     .sh {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Heredoc
     .si {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Interpol
     .sx {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Other
     .sr {
-        color: #009926;
+        color: var(--color-variable-light);
         font-family: "Iosevka";
     } // Literal.String.Regex
     .s1 {
-        color: #d14;
+        color: var(--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Single
     .ss {
-        color: #990073;
+        color: var(--color-symbol-light);
         font-family: "Iosevka";
     } // Literal.String.Symbol
     .bp {
-        color: #999;
+        color: var(--color-preproc-light);
         font-family: "Iosevka";
     } // Name.Builtin.Pseudo
     .vc {
-        color: #008080;
+        color: var(--color-variable-light);
         font-family: "Iosevka";
     } // Name.Variable.Class
     .vg {
-        color: #008080;
+        color: var(--color-variable-light);
         font-family: "Iosevka";
     } // Name.Variable.Global
     .vi {
-        color: #008080;
+        color: var(--color-variable-light);
         font-family: "Iosevka";
     } // Name.Variable.Instance
     .il {
-        color: #099;
+        color: var(--color-number-light);
         font-family: "Iosevka";
     } // Literal.Number.Integer.Long
+}
+
+.highlight pre,
+.highlight code {
+    background: var(--bg-light);
+    color: inherit;
+    border: none;
+    box-shadow: none;
 }

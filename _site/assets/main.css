@@ -81,7 +81,7 @@ figure {
 body {
   font: 400 16px/1.5 "Iosevka";
   color: black;
-  background-color: white;
+  background-color: beige;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -341,7 +341,7 @@ body.light-mode .dark-mode-toggle {
 
 .dark-mode {
   background-color: black;
-  color: white;
+  color: beige;
   /**
    * Code formatting
    */
@@ -353,7 +353,7 @@ body.light-mode .dark-mode-toggle {
   color: #b30000;
 }
 .dark-mode a:hover {
-  color: white;
+  color: beige;
 }
 .dark-mode blockquote {
   color: #424242;
@@ -458,7 +458,7 @@ body.light-mode .dark-mode-toggle {
     position: absolute;
     top: 9px;
     right: 15px;
-    background-color: white;
+    background-color: beige;
     border: 1px solid #e8e8e8;
     border-radius: 5px;
     text-align: right;

@@ -1,54 +1,54 @@
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Regular.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Bold.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-ExtraBold.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-ExtraBold.woff") format("woff");
   font-weight: 800;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-ExtraLight.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-ExtraLight.woff") format("woff");
   font-weight: 200;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Heavy.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Heavy.woff") format("woff");
   font-weight: 900;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Light.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Medium.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-SemiBold.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-SemiBold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
 @font-face {
   font-family: "Iosevka";
-  src: url("../assets/fonts/Iosevka-Thin.ttc") format("truetype");
+  src: url("../assets/fonts/Iosevka-Thin.woff") format("woff");
   font-weight: 100;
   font-style: normal;
 }

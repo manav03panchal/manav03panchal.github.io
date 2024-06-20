@@ -1,4 +1,196 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-07T16:00:00-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 3</title><link href="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html" rel="alternate" type="text/html" title="Learning Go, Day 3" /><published>2024-06-07T00:00:00-06:00</published><updated>2024-06-07T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/07/learning-go-day3</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html"><![CDATA[<p>One thing to add before we proceed, While doing the exercises in the book (1.3), I found out that <code class="language-plaintext highlighter-rouge">ioutil.Discard</code> has been deprecated, and now it is just <code class="language-plaintext highlighter-rouge">io.Discard</code></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-20T13:45:06-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 5</title><link href="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html" rel="alternate" type="text/html" title="Learning Go, Day 5" /><published>2024-06-20T00:00:00-06:00</published><updated>2024-06-20T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/20/learning-go-day5</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html"><![CDATA[<p>Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.</p>
+
+<p>This is where we encounter a <code class="language-plaintext highlighter-rouge">goroutine</code> and a <code class="language-plaintext highlighter-rouge">channel</code>.</p>
+
+<p>From the book: A goroutine is a concurrent function execution. Channels are a way for goroutines to communicate with each other.</p>
+
+<p>If you come from a more C/C++ background, you can think of a goroutine as a thread and a channel as a pipe.</p>
+
+<p>For exercise 1.10 we can observe caching. Here’s a screenshot of the output:</p>
+
+<hr />
+<p><br />
+<img src="/_media/output.png" alt="Exercise 1.10" /></p>
+
+<hr />
+<p><br />
+And now we modify fetchall to print its output to a file. Here’s the solution (I mean we could use terminal to just direct the output to some file.) But here’s the solution anyway:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"failed to create file"</span><span class="p">)</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="n">file</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+	<span class="c">// time for the main program</span>
+	<span class="n">start</span> <span class="o">:=</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()</span>
+	<span class="c">// main channel?</span>
+	<span class="n">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="c">// then run the goroutine with arguments (the URLs) provided during invoke.</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">url</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="k">go</span> <span class="n">fetch</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span> <span class="c">// this is a goroutine.</span>
+	<span class="p">}</span>
+	<span class="c">// here, ch is filled with stuff from the above goroutine</span>
+	<span class="c">// then we print them.</span>
+	<span class="k">for</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="o">&lt;-</span><span class="n">ch</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="c">// print the thing received from chan ch</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="c">// print total time elapsed since main prog invoked.</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%fs"</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">Since</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">Seconds</span><span class="p">())</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">" elapsed."</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c">// goroutine to run http.Get() on the URL we provide to it.</span>
+<span class="k">func</span> <span class="n">fetch</span><span class="p">(</span><span class="n">url</span> <span class="kt">string</span><span class="p">,</span> <span class="n">ch</span> <span class="k">chan</span><span class="o">&lt;-</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c">// now each grtn has a timer that we print.</span>
+	<span class="n">start</span> <span class="o">:=</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()</span>
+	<span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+	<span class="c">// checking if there's an error here or not.</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">ch</span> <span class="o">&lt;-</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Sprint</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="n">nbytes</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">io</span><span class="o">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">Discard</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span>
+	<span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span> <span class="c">// we do this to not leak resources ??</span>
+
+	<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">ch</span> <span class="o">&lt;-</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"while reading %s: %v"</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="n">secs</span> <span class="o">:=</span> <span class="n">time</span><span class="o">.</span><span class="n">Since</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="o">.</span><span class="n">Seconds</span><span class="p">()</span>
+	<span class="n">ch</span> <span class="o">&lt;-</span> <span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"%.2fs %7d %s"</span><span class="p">,</span> <span class="n">secs</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We used os.Create() to create the file.
+I like the <code class="language-plaintext highlighter-rouge">defer file.Close()</code> line. It’s like a destructor in C++.
+What is does is wait for the surrounding function to return and then it closes the file.</p>
+
+<p>I think we can end this here for this topic.</p>
+
+<p>I’ll see you tomorrow. Bye.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Learning Go, Day 4</title><link href="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html" rel="alternate" type="text/html" title="Learning Go, Day 4" /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/19/learning-go-day4</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html"><![CDATA[<p>Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.</p>
+
+<p>Here’s the solution for Exercise 1.7:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+	<span class="s">"fmt"</span>
+	<span class="s">"io"</span>
+	<span class="s">"net/http"</span>
+	<span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">url</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stdout</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span>
+		<span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: copying %s: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Here’s the solution for Exercise 1.8:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">url</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="c">// modify fetch to add the prefix http:// to each argument URL if it is missing.</span>
+
+		<span class="c">// check if the url has http:// prefix</span>
+		<span class="k">if</span> <span class="n">strings</span><span class="o">.</span><span class="n">HasPrefix</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s">"http://"</span><span class="p">)</span> <span class="o">==</span> <span class="no">true</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"URL has http:// prefix: "</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="n">strings</span><span class="o">.</span><span class="n">HasPrefix</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s">"http://"</span><span class="p">)</span> <span class="o">==</span> <span class="no">false</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"URL does not have http:// prefix: "</span><span class="p">)</span>
+			<span class="n">url</span> <span class="o">=</span> <span class="s">"http://"</span> <span class="o">+</span> <span class="n">url</span>
+		<span class="p">}</span>
+
+		<span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c">// b, err := io.ReadAll(resp.Body)</span>
+		<span class="c">// need to use io.Copy(src, dest) instead now.</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stdout</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span>
+		<span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: reading %s: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This is the solution for Exercise 1.9:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">url</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="c">// modify fetch to add the prefix http:// to each argument URL if it is missing.</span>
+		<span class="k">if</span> <span class="n">strings</span><span class="o">.</span><span class="n">HasPrefix</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s">"http://"</span><span class="p">)</span> <span class="o">==</span> <span class="no">false</span> <span class="p">{</span>
+			<span class="n">url</span> <span class="o">=</span> <span class="s">"http://"</span> <span class="o">+</span> <span class="n">url</span>
+		<span class="p">}</span>
+
+		<span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">Get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="c">// b, err := io.ReadAll(resp.Body)</span>
+		<span class="c">// need to use io.Copy(src, dest) instead now.</span>
+
+		<span class="c">// also print the HTTP status code.</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">Status</span><span class="p">)</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">Copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stdout</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="p">)</span>
+		<span class="n">resp</span><span class="o">.</span><span class="n">Body</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+			<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="p">,</span> <span class="s">"fetch: reading %s: %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<hr />
+<p><br />
+Stuff was pretty straightforward. Alright. Good night.</p>
+
+<p>Manav.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Hi there. A few updates lol.</title><link href="http://localhost:4000/misc/2024/06/19/misc.html" rel="alternate" type="text/html" title="Hi there. A few updates lol." /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/misc/2024/06/19/misc</id><content type="html" xml:base="http://localhost:4000/misc/2024/06/19/misc.html"><![CDATA[<p>Phew. It’s been what… around 12 days since I last posted?</p>
+
+<p>I’ve been busy with finals and work. But I think I’m going to be more active here now. There’s been a few topics that I wanna explore and write about in the 12 months I have left in my co-op, after which I go back to uni.</p>
+
+<hr />
+<p><br />
+Some ideas including but not limited to:</p>
+<ul>
+  <li>Continuing with the Go book.</li>
+  <li>Learning how to write stock pitches like some you see in <a href="valueinvestorsclub.com">here</a></li>
+  <li>Writing about Ansible and Docker because I might be using them at work.</li>
+  <li>I am also reading Crafting Interpreters, so I might write about that.</li>
+  <li>Reviewing the RISC-V book I bought which was used for CMPUT 229. [I wanna do good in this field. Even tho I fucked up the course lmaooo.]</li>
+</ul>
+
+<p><br />
+lets have some fun :))</p>
+
+<p><br />
+Manav.</p>]]></content><author><name></name></author><category term="misc" /><summary type="html"><![CDATA[Phew. It’s been what… around 12 days since I last posted?]]></summary></entry><entry><title type="html">Learning Go, Day 3</title><link href="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html" rel="alternate" type="text/html" title="Learning Go, Day 3" /><published>2024-06-07T00:00:00-06:00</published><updated>2024-06-07T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/07/learning-go-day3</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html"><![CDATA[<p>One thing to add before we proceed, While doing the exercises in the book (1.3), I found out that <code class="language-plaintext highlighter-rouge">ioutil.Discard</code> has been deprecated, and now it is just <code class="language-plaintext highlighter-rouge">io.Discard</code></p>
 
 <p>Also, here’s a question I had when solving <a href="https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body">What happens if I don’t close <code class="language-plaintext highlighter-rouge">resp.Body?</code></a></p>
 

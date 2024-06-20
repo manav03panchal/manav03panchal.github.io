@@ -306,6 +306,18 @@ body.light-mode .dark-mode-toggle {
     background-color: $dark-background-color;
     color: $dark-text-color;
 
+    .site-header {
+        background-color: $dark-background-color;
+        color: $dark-text-color;
+        box-shadow: 0 0 10px $background-color;
+    }
+
+    .site-footer {
+        background-color: $dark-background-color;
+        color: $dark-text-color;
+        box-shadow: 0 0 10px $background-color;
+    }
+
     a {
         color: $dark-brand-color;
 

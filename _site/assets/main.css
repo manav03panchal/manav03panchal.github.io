@@ -346,6 +346,16 @@ body.light-mode .dark-mode-toggle {
    * Code formatting
    */
 }
+.dark-mode .site-header {
+  background-color: black;
+  color: beige;
+  box-shadow: 0 0 10px beige;
+}
+.dark-mode .site-footer {
+  background-color: black;
+  color: beige;
+  box-shadow: 0 0 10px beige;
+}
 .dark-mode a {
   color: red;
 }
@@ -418,10 +428,12 @@ body.light-mode .dark-mode-toggle {
  * Site header
  */
 .site-header {
-  border-top: 5px solid #424242;
-  border-bottom: 1px solid #e8e8e8;
+  position: fixed;
+  z-index: 1000;
   min-height: 55.95px;
-  position: relative;
+  width: 100%;
+  background-color: beige;
+  box-shadow: 0 0 10px black;
 }
 
 .site-title {
@@ -505,8 +517,13 @@ body.light-mode .dark-mode-toggle {
  * Site footer
  */
 .site-footer {
-  border-top: 1px solid #e8e8e8;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: beige;
   padding: 30px 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px black;
 }
 
 .footer-heading {
@@ -578,6 +595,7 @@ body.light-mode .dark-mode-toggle {
 }
 
 .post-list-heading {
+  padding-top: 60px;
   font-size: 28px;
 }
 
@@ -602,6 +620,7 @@ body.light-mode .dark-mode-toggle {
  * Posts
  */
 .post-header {
+  padding-top: 60px;
   margin-bottom: 30px;
 }
 
@@ -617,7 +636,7 @@ body.light-mode .dark-mode-toggle {
 }
 
 .post-content {
-  margin-bottom: 30px;
+  margin-bottom: 150px;
 }
 .post-content h2 {
   font-size: 32px;

@@ -2,12 +2,15 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
-    min-height: $spacing-unit * 1.865;
+    position: fixed;
 
+    z-index: 1000;
+    min-height: $spacing-unit * 1.865;
+    width: 100%;
+    background-color: $background-color;
     // Positioning context for the mobile navigation icon
-    position: relative;
+    // make this pill shaped.
+    box-shadow: 0 0 10px $dark-background-color;
 }
 
 .site-title {
@@ -104,8 +107,13 @@
  * Site footer
  */
 .site-footer {
-    border-top: 1px solid $grey-color-light;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: $background-color;
     padding: $spacing-unit 0;
+    z-index: 1000;
+    box-shadow: 0 0 10px $dark-background-color;
 }
 
 .footer-heading {
@@ -181,6 +189,7 @@
 }
 
 .post-list-heading {
+    padding-top: $spacing-unit * 2;
     @include relative-font-size(1.75);
 }
 
@@ -206,6 +215,7 @@
  * Posts
  */
 .post-header {
+    padding-top: $spacing-unit * 2;
     margin-bottom: $spacing-unit;
 }
 
@@ -220,7 +230,7 @@
 }
 
 .post-content {
-    margin-bottom: $spacing-unit;
+    margin-bottom: $spacing-unit * 5;
 
     h2 {
         @include relative-font-size(2);

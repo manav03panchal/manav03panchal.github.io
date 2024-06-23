@@ -78,9 +78,8 @@ $dark-text-color: beige !default;
 $text-color: black !default;
 $background-color: beige !default;
 $brand-color: blue !default;
-// randomize color
-$dark-brand-color: red !default;
 
+$dark-brand-color: red !default;
 $dark-background-color: black !default;
 $grey-color: #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
@@ -91,14 +90,29 @@ $table-text-align: left !default;
 // Width of the content area
 $content-width: 800px !default;
 
-$on-palm: 0px !default;
-$on-laptop: 0px !default;
+$on-palm: 480px !default;
+$on-laptop: 1024px !default;
+
+// Define a list of neon colors
+$neon-colors: (
+    #39ff14,
+    // Neon Green
+    #ff073a,
+    // Neon Red
+    #f4f800,
+    // Neon Yellow
+    #00ffff,
+    // Neon Cyan
+    #ff00ff,
+    // Neon Magenta
+    #ffff33 // Neon Lime
+);
 
 // Use media queries like this:
 // @include media-query($on-palm) {
 //   .wrapper {
-//     padding-right: $spacing-unit / 2;
-//     padding-left: $spacing-unit / 2;
+//     padding-right: math.div($spacing-unit, 2);
+//     padding-left: math.div($spacing-unit, 2);
 //   }
 // }
 @mixin media-query($device) {
@@ -111,5 +125,7 @@ $on-laptop: 0px !default;
     font-size: $base-font-size * $ratio;
 }
 
-// Import partials.
+// Apply the variable in your styles
+
+// Import partials
 @import "minima/base", "minima/layout", "minima/syntax-highlighting";

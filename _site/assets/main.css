@@ -94,6 +94,44 @@ body {
 }
 
 /**
+ * Responsive container and columns
+ */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .col {
+    flex-basis: 100%;
+  }
+}
+/**
+ * Responsive typography
+ */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+/**
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1,
@@ -117,7 +155,7 @@ figure,
  * `main` element
  */
 main {
-  display: block; /* Default value o sf `display` of `main` element is 'inline' in IE 11. */
+  display: block; /* Default value of `display` of `main` element is 'inline' in IE 11. */
 }
 
 /**
@@ -125,6 +163,7 @@ main {
  */
 img {
   max-width: 100%;
+  height: auto;
   vertical-align: middle;
 }
 
@@ -229,14 +268,12 @@ pre > code {
  * Wrapper
  */
 .wrapper {
-  /* max-width: -webkit-calc(800px - (30px * 2));
-  max-width:         calc(800px - (30px * 2)); */
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .wrapper {
     max-width: -webkit-calc(800px - (30px));
     max-width: calc(800px - (30px));
@@ -297,6 +334,9 @@ table td {
   border: 1px solid #e8e8e8;
 }
 
+/**
+ * Copy Code Button
+ */
 .copy-code-button {
   display: block;
 }
@@ -318,6 +358,9 @@ table td {
   background: #444;
 }
 
+/**
+ * Dark Mode Toggle
+ */
 .dark-mode-toggle {
   width: 20px;
   height: 20px;
@@ -339,6 +382,9 @@ body.light-mode .dark-mode-toggle {
   background: black;
 }
 
+/**
+ * Dark Mode Styles
+ */
 .dark-mode {
   background-color: black;
   color: beige;
@@ -425,6 +471,51 @@ body.light-mode .dark-mode-toggle {
 }
 
 /**
+ * Media Queries for Additional Responsiveness
+ */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 10px;
+  }
+  .wrapper {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 7.5px;
+  }
+  pre,
+  code {
+    font-size: 90%;
+  }
+  table th,
+  table td {
+    padding: 15px 10px;
+  }
+}
+@media (max-width: 480px) {
+  .container {
+    padding: 0 5px;
+  }
+  .wrapper {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  pre,
+  code {
+    font-size: 85%;
+  }
+  table th,
+  table td {
+    padding: 10px 7.5px;
+  }
+}
+/**
  * Site header
  */
 .site-header {
@@ -465,7 +556,7 @@ body.light-mode .dark-mode-toggle {
 .site-nav .page-link:not(:last-child) {
   margin-right: 20px;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 480px) {
   .site-nav {
     position: absolute;
     top: 9px;
@@ -564,7 +655,7 @@ body.light-mode .dark-mode-toggle {
   width: calc(45% - 30px / 2);
 }
 
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .footer-col-1,
   .footer-col-2 {
     width: -webkit-calc(50% - (30px / 2));
@@ -575,7 +666,7 @@ body.light-mode .dark-mode-toggle {
     width: calc(100% - 30px / 2);
   }
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 480px) {
   .footer-col {
     float: none;
     width: -webkit-calc(100% - (30px / 2));
@@ -629,7 +720,7 @@ body.light-mode .dark-mode-toggle {
   letter-spacing: -1px;
   line-height: 1;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .post-title {
     font-size: 36px;
   }
@@ -641,7 +732,7 @@ body.light-mode .dark-mode-toggle {
 .post-content h2 {
   font-size: 32px;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .post-content h2 {
     font-size: 28px;
   }
@@ -649,7 +740,7 @@ body.light-mode .dark-mode-toggle {
 .post-content h3 {
   font-size: 26px;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .post-content h3 {
     font-size: 22px;
   }
@@ -657,12 +748,99 @@ body.light-mode .dark-mode-toggle {
 .post-content h4 {
   font-size: 20px;
 }
-@media screen and (max-width: 0px) {
+@media screen and (max-width: 1024px) {
   .post-content h4 {
     font-size: 18px;
   }
 }
 
+/**
+ * Additional media queries for responsiveness
+ */
+@media (max-width: 1024px) {
+  .site-header,
+  .site-footer {
+    min-height: 45px;
+  }
+  .site-title {
+    font-size: 1.5rem;
+  }
+  .site-nav .page-link {
+    font-size: 0.875rem;
+    margin-right: 10px;
+  }
+  .footer-col-wrapper {
+    font-size: 0.875rem;
+  }
+  .post-title {
+    font-size: 2.25rem;
+  }
+  .post-content h2 {
+    font-size: 1.75rem;
+  }
+  .post-content h3 {
+    font-size: 1.5rem;
+  }
+  .post-content h4 {
+    font-size: 1.25rem;
+  }
+}
+@media (max-width: 768px) {
+  .site-header,
+  .site-footer {
+    min-height: 37.5px;
+  }
+  .site-title {
+    font-size: 1.375rem;
+  }
+  .site-nav .page-link {
+    font-size: 0.75rem;
+    margin-right: 5px;
+  }
+  .footer-col-wrapper {
+    font-size: 0.75rem;
+  }
+  .post-title {
+    font-size: 2rem;
+  }
+  .post-content h2 {
+    font-size: 1.5rem;
+  }
+  .post-content h3 {
+    font-size: 1.25rem;
+  }
+  .post-content h4 {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .site-header,
+  .site-footer {
+    min-height: 30px;
+  }
+  .site-title {
+    font-size: 1.25rem;
+  }
+  .site-nav .page-link {
+    font-size: 0.625rem;
+    margin-right: 2px;
+  }
+  .footer-col-wrapper {
+    font-size: 0.625rem;
+  }
+  .post-title {
+    font-size: 1.75rem;
+  }
+  .post-content h2 {
+    font-size: 1.25rem;
+  }
+  .post-content h3 {
+    font-size: 1rem;
+  }
+  .post-content h4 {
+    font-size: 0.875rem;
+  }
+}
 /**
  * Syntax highlighting styles
  */
@@ -990,7 +1168,7 @@ body.dark-mode {
   font-family: "Iosevka";
 }
 .highlight .sb {
-  color: var(--color-string-light);
+  color: var --color-string-light;
   font-family: "Iosevka";
 }
 .highlight .sc {
@@ -1060,6 +1238,25 @@ body.dark-mode {
   color: inherit;
   border: none;
   box-shadow: none;
+}
+
+/**
+ * Responsive adjustments
+ */
+@media (max-width: 1024px) {
+  .highlight {
+    font-size: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .highlight {
+    font-size: 85%;
+  }
+}
+@media (max-width: 480px) {
+  .highlight {
+    font-size: 80%;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

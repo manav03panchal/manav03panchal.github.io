@@ -329,7 +329,7 @@ body {
         font-family: "Iosevka";
     } // Literal.Number.Oct
     .sb {
-        color: var(--color-string-light);
+        color: var (--color-string-light);
         font-family: "Iosevka";
     } // Literal.String.Backtick
     .sc {
@@ -400,4 +400,25 @@ body {
     color: inherit;
     border: none;
     box-shadow: none;
+}
+
+/**
+ * Responsive adjustments
+ */
+@media (max-width: 1024px) {
+    .highlight {
+        font-size: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .highlight {
+        font-size: 85%;
+    }
+}
+
+@media (max-width: 480px) {
+    .highlight {
+        font-size: 80%;
+    }
 }

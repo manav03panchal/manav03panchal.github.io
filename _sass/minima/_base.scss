@@ -41,6 +41,46 @@ body {
 }
 
 /**
+ * Responsive container and columns
+ */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .col {
+        flex-basis: 100%;
+    }
+}
+
+/**
+ * Responsive typography
+ */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/**
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1,
@@ -64,7 +104,7 @@ figure,
  * `main` element
  */
 main {
-    display: block; /* Default value o sf `display` of `main` element is 'inline' in IE 11. */
+    display: block; /* Default value of `display` of `main` element is 'inline' in IE 11. */
 }
 
 /**
@@ -72,6 +112,7 @@ main {
  */
 img {
     max-width: 100%;
+    height: auto;
     vertical-align: middle;
 }
 
@@ -184,8 +225,6 @@ pre {
  * Wrapper
  */
 .wrapper {
-    /* max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-  max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2)); */
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
@@ -257,6 +296,9 @@ table {
     }
 }
 
+/**
+ * Copy Code Button
+ */
 .copy-code-button {
     display: block;
 }
@@ -279,6 +321,9 @@ table {
     }
 }
 
+/**
+ * Dark Mode Toggle
+ */
 .dark-mode-toggle {
     width: 20px;
     height: 20px;
@@ -301,7 +346,9 @@ body.light-mode .dark-mode-toggle {
     background: black;
 }
 
-// dark mode
+/**
+ * Dark Mode Styles
+ */
 .dark-mode {
     background-color: $dark-background-color;
     color: $dark-text-color;
@@ -400,5 +447,59 @@ body.light-mode .dark-mode-toggle {
             padding-right: 0;
             padding-left: 0;
         }
+    }
+}
+
+/**
+ * Media Queries for Additional Responsiveness
+ */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .wrapper {
+        padding-right: $spacing-unit / 1.5;
+        padding-left: $spacing-unit / 1.5;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: $spacing-unit / 4;
+    }
+
+    pre,
+    code {
+        font-size: 90%;
+    }
+
+    table th,
+    table td {
+        padding: ($spacing-unit / 2) ($spacing-unit / 3);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 5px;
+    }
+
+    .wrapper {
+        padding-right: $spacing-unit / 2;
+        padding-left: $spacing-unit / 2;
+    }
+
+    pre,
+    code {
+        font-size: 85%;
+    }
+
+    table th,
+    table td {
+        padding: ($spacing-unit / 3) ($spacing-unit / 4);
     }
 }

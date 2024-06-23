@@ -36,8 +36,28 @@ body {
     font-feature-settings: "kern" 1;
     font-kerning: normal;
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+/**
+ * Site header, content, and footer
+ */
+.site-header {
+    /* Add your header styles here */
+}
+
+.page-content {
+    flex: 1; /* This makes the content area expand to fill the available space */
+}
+
+.site-footer {
+    background-color: $background-color;
+
+    color: $text-color;
+    padding: $spacing-unit;
+    box-shadow: 0 0 10px $background-color;
+    margin-top: auto; /* This ensures the footer stays at the bottom */
 }
 
 /**

@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-22T23:08:55-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 5</title><link href="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html" rel="alternate" type="text/html" title="Learning Go, Day 5" /><published>2024-06-20T00:00:00-06:00</published><updated>2024-06-20T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/20/learning-go-day5</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html"><![CDATA[<p>Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-06-25T21:35:06-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Manav Panchal</title><subtitle>Wannabe everything. Still figuring out what I want to do. Undergrad at the University of Alberta.</subtitle><entry><title type="html">Learning Go, Day 6 and 7</title><link href="http://localhost:4000/learning/go/2024/06/22/learning-go-day6.html" rel="alternate" type="text/html" title="Learning Go, Day 6 and 7" /><published>2024-06-22T00:00:00-06:00</published><updated>2024-06-22T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/22/learning-go-day6</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/22/learning-go-day6.html"><![CDATA[<p>Hello gang. I’m back with another day of learning Go. I’m continuing with the book. We’re at 1.7 now. I ignore the import segment for brevity.</p>
+
+<p>We look at making a minimal web server. Which was very easy because the library functions handle most of the work.</p>
+
+<p><code class="language-plaintext highlighter-rouge">25th June, 2024</code>
+<br />
+This is our answer for Exercise 1.12:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// handler echoes the HTTP request. Building up on server3.go provided in the book.</span>
+<span class="k">var</span> <span class="n">mu</span> <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
+<span class="k">var</span> <span class="n">count</span> <span class="kt">int</span>
+<span class="k">var</span> <span class="n">cycles</span> <span class="kt">int</span> <span class="o">=</span> <span class="m">5</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+	<span class="n">http</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/count"</span><span class="p">,</span> <span class="n">counter</span><span class="p">)</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">(</span><span class="s">"localhost:8000"</span><span class="p">,</span> <span class="no">nil</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">handler</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">ParseForm</span><span class="p">();</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"r.ParseForm(): %v</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="n">_cycles</span><span class="p">,</span> <span class="n">ok</span> <span class="o">:=</span> <span class="n">r</span><span class="o">.</span><span class="n">Form</span><span class="p">[</span><span class="s">"cycles"</span><span class="p">];</span> <span class="n">ok</span> <span class="p">{</span>
+		<span class="n">cycles</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">strconv</span><span class="o">.</span><span class="n">Atoi</span><span class="p">(</span><span class="n">_cycles</span><span class="p">[</span><span class="m">0</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Num of cycles is: %d"</span><span class="p">,</span> <span class="n">cycles</span><span class="p">)</span>
+	<span class="n">lissajous</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">cycles</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">counter</span><span class="p">(</span><span class="n">w</span> <span class="n">http</span><span class="o">.</span><span class="n">ResponseWriter</span><span class="p">,</span> <span class="n">r</span> <span class="o">*</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">mu</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+	<span class="n">fmt</span><span class="o">.</span><span class="n">Fprintf</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"Count %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+	<span class="n">mu</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="n">palette</span> <span class="o">=</span> <span class="p">[]</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="p">{</span><span class="n">color</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">Black</span><span class="p">}</span>
+
+<span class="k">const</span> <span class="p">(</span>
+	<span class="n">whiteIndex</span> <span class="o">=</span> <span class="m">0</span>
+	<span class="n">blackIndex</span> <span class="o">=</span> <span class="m">1</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">lissajous</span><span class="p">(</span><span class="n">out</span> <span class="n">io</span><span class="o">.</span><span class="n">Writer</span><span class="p">,</span> <span class="n">cycles</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">const</span> <span class="p">(</span>
+		<span class="n">res</span>     <span class="o">=</span> <span class="m">0.001</span> <span class="c">// angular resolution</span>
+		<span class="n">size</span>    <span class="o">=</span> <span class="m">100</span>   <span class="c">// image canvas covers [-size..+size]</span>
+		<span class="n">nframes</span> <span class="o">=</span> <span class="m">64</span>    <span class="c">// number of animation frames</span>
+		<span class="n">delay</span>   <span class="o">=</span> <span class="m">8</span>     <span class="c">// delay between frames in 10ms units</span>
+	<span class="p">)</span>
+	<span class="n">freq</span> <span class="o">:=</span> <span class="n">rand</span><span class="o">.</span><span class="n">Float64</span><span class="p">()</span> <span class="o">*</span> <span class="m">3.0</span> <span class="c">// relative frequency of y oscillator</span>
+	<span class="n">anim</span> <span class="o">:=</span> <span class="n">gif</span><span class="o">.</span><span class="n">GIF</span><span class="p">{</span><span class="n">LoopCount</span><span class="o">:</span> <span class="n">nframes</span><span class="p">}</span>
+	<span class="n">phase</span> <span class="o">:=</span> <span class="m">0.0</span> <span class="c">// phase difference</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nframes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="n">rect</span> <span class="o">:=</span> <span class="n">image</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">2</span><span class="o">*</span><span class="n">size</span><span class="o">+</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="o">*</span><span class="n">size</span><span class="o">+</span><span class="m">1</span><span class="p">)</span>
+		<span class="n">img</span> <span class="o">:=</span> <span class="n">image</span><span class="o">.</span><span class="n">NewPaletted</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">t</span> <span class="o">:=</span> <span class="m">0.0</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="kt">float64</span><span class="p">(</span><span class="n">cycles</span><span class="p">)</span><span class="o">*</span><span class="m">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">Pi</span><span class="p">;</span> <span class="n">t</span> <span class="o">+=</span> <span class="n">res</span> <span class="p">{</span>
+			<span class="n">x</span> <span class="o">:=</span> <span class="n">math</span><span class="o">.</span><span class="n">Sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+			<span class="n">y</span> <span class="o">:=</span> <span class="n">math</span><span class="o">.</span><span class="n">Sin</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">freq</span> <span class="o">+</span> <span class="n">phase</span><span class="p">)</span>
+			<span class="n">img</span><span class="o">.</span><span class="n">SetColorIndex</span><span class="p">(</span><span class="n">size</span><span class="o">+</span><span class="kt">int</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">size</span><span class="o">+</span><span class="m">0.5</span><span class="p">),</span> <span class="n">size</span><span class="o">+</span><span class="kt">int</span><span class="p">(</span><span class="n">y</span><span class="o">*</span><span class="n">size</span><span class="o">+</span><span class="m">0.5</span><span class="p">),</span>
+				<span class="n">blackIndex</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="n">phase</span> <span class="o">+=</span> <span class="m">0.1</span>
+		<span class="n">anim</span><span class="o">.</span><span class="n">Delay</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">Delay</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span>
+		<span class="n">anim</span><span class="o">.</span><span class="n">Image</span> <span class="o">=</span> <span class="nb">append</span><span class="p">(</span><span class="n">anim</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="n">gif</span><span class="o">.</span><span class="n">EncodeAll</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">anim</span><span class="p">)</span> <span class="c">// NOTE: ignoring encoding errors</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hello gang. I’m back with another day of learning Go. I’m continuing with the book. We’re at 1.7 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Learning Go, Day 5</title><link href="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html" rel="alternate" type="text/html" title="Learning Go, Day 5" /><published>2024-06-20T00:00:00-06:00</published><updated>2024-06-20T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/20/learning-go-day5</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/20/learning-go-day5.html"><![CDATA[<p>Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.</p>
 
 <p>This is where we encounter a <code class="language-plaintext highlighter-rouge">goroutine</code> and a <code class="language-plaintext highlighter-rouge">channel</code>.</p>
 
@@ -74,7 +143,26 @@ What is does is wait for the surrounding function to return and then it closes t
 
 <p>I think we can end this here for this topic.</p>
 
-<p>I’ll see you tomorrow. Bye.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Learning Go, Day 4</title><link href="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html" rel="alternate" type="text/html" title="Learning Go, Day 4" /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/19/learning-go-day4</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html"><![CDATA[<p>Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.</p>
+<p>I’ll see you tomorrow. Bye.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Continuing with the book. We’re at 1.6 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Hi there. A few updates lol.</title><link href="http://localhost:4000/misc/2024/06/19/misc.html" rel="alternate" type="text/html" title="Hi there. A few updates lol." /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/misc/2024/06/19/misc</id><content type="html" xml:base="http://localhost:4000/misc/2024/06/19/misc.html"><![CDATA[<p>Phew. It’s been what… around 12 days since I last posted?</p>
+
+<p>I’ve been busy with finals and work. But I think I’m going to be more active here now. There’s been a few topics that I wanna explore and write about in the 12 months I have left in my co-op, after which I go back to uni.</p>
+
+<hr />
+<p><br />
+Some ideas including but not limited to:</p>
+<ul>
+  <li>Continuing with the Go book.</li>
+  <li>Learning how to write stock pitches like some you see in <a href="valueinvestorsclub.com">here</a></li>
+  <li>Writing about Ansible and Docker because I might be using them at work.</li>
+  <li>I am also reading Crafting Interpreters, so I might write about that.</li>
+  <li>Reviewing the RISC-V book I bought which was used for CMPUT 229. [I wanna do good in this field. Even tho I fucked up the course lmaooo.]</li>
+</ul>
+
+<p><br />
+lets have some fun :))</p>
+
+<p><br />
+Manav.</p>]]></content><author><name></name></author><category term="misc" /><summary type="html"><![CDATA[Phew. It’s been what… around 12 days since I last posted?]]></summary></entry><entry><title type="html">Learning Go, Day 4</title><link href="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html" rel="alternate" type="text/html" title="Learning Go, Day 4" /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/19/learning-go-day4</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/19/learning-go-day4.html"><![CDATA[<p>Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.</p>
 
 <p>Here’s the solution for Exercise 1.7:</p>
 
@@ -171,26 +259,7 @@ What is does is wait for the surrounding function to return and then it closes t
 <p><br />
 Stuff was pretty straightforward. Alright. Good night.</p>
 
-<p>Manav.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Hi there. A few updates lol.</title><link href="http://localhost:4000/misc/2024/06/19/misc.html" rel="alternate" type="text/html" title="Hi there. A few updates lol." /><published>2024-06-19T00:00:00-06:00</published><updated>2024-06-19T00:00:00-06:00</updated><id>http://localhost:4000/misc/2024/06/19/misc</id><content type="html" xml:base="http://localhost:4000/misc/2024/06/19/misc.html"><![CDATA[<p>Phew. It’s been what… around 12 days since I last posted?</p>
-
-<p>I’ve been busy with finals and work. But I think I’m going to be more active here now. There’s been a few topics that I wanna explore and write about in the 12 months I have left in my co-op, after which I go back to uni.</p>
-
-<hr />
-<p><br />
-Some ideas including but not limited to:</p>
-<ul>
-  <li>Continuing with the Go book.</li>
-  <li>Learning how to write stock pitches like some you see in <a href="valueinvestorsclub.com">here</a></li>
-  <li>Writing about Ansible and Docker because I might be using them at work.</li>
-  <li>I am also reading Crafting Interpreters, so I might write about that.</li>
-  <li>Reviewing the RISC-V book I bought which was used for CMPUT 229. [I wanna do good in this field. Even tho I fucked up the course lmaooo.]</li>
-</ul>
-
-<p><br />
-lets have some fun :))</p>
-
-<p><br />
-Manav.</p>]]></content><author><name></name></author><category term="misc" /><summary type="html"><![CDATA[Phew. It’s been what… around 12 days since I last posted?]]></summary></entry><entry><title type="html">Learning Go, Day 3</title><link href="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html" rel="alternate" type="text/html" title="Learning Go, Day 3" /><published>2024-06-07T00:00:00-06:00</published><updated>2024-06-07T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/07/learning-go-day3</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html"><![CDATA[<p>One thing to add before we proceed, While doing the exercises in the book (1.3), I found out that <code class="language-plaintext highlighter-rouge">ioutil.Discard</code> has been deprecated, and now it is just <code class="language-plaintext highlighter-rouge">io.Discard</code></p>
+<p>Manav.</p>]]></content><author><name></name></author><category term="learning" /><category term="go" /><summary type="html"><![CDATA[Hello gang. We’re continuing with the book. We’re at 1.5 now. I ignore the import segment for brevity.]]></summary></entry><entry><title type="html">Learning Go, Day 3</title><link href="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html" rel="alternate" type="text/html" title="Learning Go, Day 3" /><published>2024-06-07T00:00:00-06:00</published><updated>2024-06-07T00:00:00-06:00</updated><id>http://localhost:4000/learning/go/2024/06/07/learning-go-day3</id><content type="html" xml:base="http://localhost:4000/learning/go/2024/06/07/learning-go-day3.html"><![CDATA[<p>One thing to add before we proceed, While doing the exercises in the book (1.3), I found out that <code class="language-plaintext highlighter-rouge">ioutil.Discard</code> has been deprecated, and now it is just <code class="language-plaintext highlighter-rouge">io.Discard</code></p>
 
 <p>Also, here’s a question I had when solving <a href="https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body">What happens if I don’t close <code class="language-plaintext highlighter-rouge">resp.Body?</code></a></p>
 
